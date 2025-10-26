@@ -38,5 +38,6 @@ export async function getMongoClient() {
 1. **Update the files** above
 2. **Make sure your `.env.local` has:**
 ```
-   OPENAI_API_KEY=your-key-here
-   MONGODB_URI=your-mongodb-uri
+   OPENAI_API_KEY=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
+   MONGODB_URI=mongodb://localhost:27017/aiapp
+
