@@ -57,7 +57,7 @@ ai-next/
 ### 1️⃣ Clone the repo
 
 ```bash
-git clone https://github.com/<your-username>/ai-next.git
+git clone [https://github.com/<your-username>/ai-next.git](https://github.com/shivannadm/ai-stack-showdown/tree/main/ai-next)
 cd ai-next
 ```
 
@@ -113,7 +113,7 @@ git init
 git add .
 git commit -m "Initial commit — AI Next scaffold"
 git branch -M main
-git remote add origin https://github.com/shivannadm/ai-next.git
+git remote add origin [https://github.com/shivannadm/ai-next.git](https://github.com/shivannadm/ai-stack-showdown/tree/main/ai-next)
 git push -u origin main
 ```
 
@@ -290,7 +290,7 @@ git init
 git add .
 git commit -m "Initial commit"
 git branch -M main
-git remote add origin https://github.com/<you>/ai-next.git
+git remote add origin [https://github.com/<you>/ai-next.git](https://github.com/shivannadm/ai-stack-showdown/tree/main/ai-next)
 git push -u origin main
 
 # vercel deploy
