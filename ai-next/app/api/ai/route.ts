@@ -1,8 +1,10 @@
 // app/api/ai/route.ts
-import { NextRequest } from "next/server";
-// relative path from app/api/ai/route.ts to lib/mongodb.ts
+import { NextRequest, NextResponse } from "next/server";
 import { getMongoClient } from "../../../lib/mongodb";
 import { OpenAI } from "openai";
+
+// Ensure this file is treated as a Node.js runtime route
+export const runtime = 'nodejs';
 
 if (!process.env.OPENAI_API_KEY) {
   throw new Error("Missing OPENAI_API_KEY in environment");
@@ -16,22 +18,22 @@ export async function POST(req: NextRequest) {
     const prompt = (body?.prompt || "").toString();
 
     if (!prompt || prompt.trim().length === 0) {
-      return new Response(JSON.stringify({ error: "Prompt missing" }), { status: 400 });
+      return NextResponse.json({ error: "Prompt missing" }, { status: 400 });
     }
 
-    // Call the OpenAI Responses endpoint (simple non-streaming example)
-    const aiResp = await client.responses.create({
+    // Call OpenAI Chat Completions API (correct method)
+    const aiResp = await client.chat.completions.create({
       model: "gpt-4o-mini",
-      input: prompt,
+      messages: [
+        {
+          role: "user",
+          content: prompt
+        }
+      ],
     });
 
-    // Extract text — depends on API shape; this is conservative
-    const outputItems = aiResp.output ?? [];
-    const text = Array.isArray(outputItems)
-      ? outputItems
-          .map((o: any) => (o?.content ?? []).map((c: any) => c.text ?? "").join(""))
-          .join("")
-      : (aiResp.output_text ?? "");
+    // Extract the response text
+    const text = aiResp.choices[0]?.message?.content || "";
 
     // Save to MongoDB
     const mongo = await getMongoClient();
@@ -43,15 +45,12 @@ export async function POST(req: NextRequest) {
     };
     await db.collection("messages").insertOne(doc);
 
-    return new Response(JSON.stringify({ text, ok: true }), {
-      status: 200,
-      headers: { "Content-Type": "application/json" },
-    });
+    return NextResponse.json({ text, ok: true }, { status: 200 });
   } catch (err: any) {
     console.error("API /ai error:", err);
-    return new Response(JSON.stringify({ error: err?.message ?? String(err) }), {
-      status: 500,
-      headers: { "Content-Type": "application/json" },
-    });
+    return NextResponse.json(
+      { error: err?.message ?? String(err) }, 
+      { status: 500 }
+    );
   }
 }
