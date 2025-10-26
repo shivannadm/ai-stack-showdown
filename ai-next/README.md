@@ -57,7 +57,7 @@ ai-next/
 ### 1️⃣ Clone the repo
 
 ```bash
-git clone [https://github.com/<your-username>/ai-next.git](https://github.com/shivannadm/ai-stack-showdown/tree/main/ai-next)
+git clone https://github.com/shivannadm/ai-stack-showdown/tree/main/ai-next
 cd ai-next
 ```
 
@@ -113,7 +113,7 @@ git init
 git add .
 git commit -m "Initial commit — AI Next scaffold"
 git branch -M main
-git remote add origin [https://github.com/shivannadm/ai-next.git](https://github.com/shivannadm/ai-stack-showdown/tree/main/ai-next)
+git remote add origin https://github.com/shivannadm/ai-stack-showdown/tree/main/ai-next
 git push -u origin main
 ```
 
