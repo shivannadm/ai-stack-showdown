@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
-import './globals.css'
+import './globals.css'  // ← This line must be here!
 
 export const metadata: Metadata = {
-  title: 'AI Stack Showdown',
-  description: 'Next.js AI Application',
+  title: 'AI Next App',
+  description: 'Next.js AI Application with OpenAI and MongoDB',
 }
 
 export default function RootLayout({
