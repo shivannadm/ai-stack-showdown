@@ -12,6 +12,21 @@ let clientPromise: Promise<MongoClient>;
 
 if (process.env.NODE_ENV === "development") {
   let globalWithMongo = global as typeof globalThis & {
+    _mongoClientPromise?: Promisimport { MongoClient } from "mongodb";
+
+const uri = process.env.MONGODB_URI || "";
+
+const options = {};
+
+let client: MongoClient;
+let clientPromise: Promise<MongoClient>;
+
+if (!uri) {
+  // Provide a dummy promise if no URI is set (won't work at runtime, but allows build)
+  console.warn("MONGODB_URI not set - MongoDB features will not work");
+  clientPromise = Promise.reject(new Error("MONGODB_URI not configured"));
+} else if (process.env.NODE_ENV === "development") {
+  let globalWithMongo = global as typeof globalThis & {
     _mongoClientPromise?: Promise<MongoClient>;
   };
 
@@ -28,3 +43,4 @@ if (process.env.NODE_ENV === "development") {
 export async function getMongoClient() {
   return clientPromise;
 }
+
