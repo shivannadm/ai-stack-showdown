@@ -18,7 +18,7 @@ export default function Home() {
         color: 'var(--muted)',
         fontSize: '16px'
       }}>
-        Prompt → OpenAI → MongoDB (history)
+        Full-Stack AI Chat App (Next.js + OpenAI + MongoDB)
       </p>
       
       <div className="card">
@@ -31,3 +31,4 @@ export default function Home() {
     </main>
   );
 }
+
