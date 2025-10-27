@@ -1,4 +1,3 @@
-// components/ChatClient.tsx
 "use client";
 import React, { useState } from "react";
 
@@ -29,7 +28,6 @@ export default function ChatClient() {
             const data = await res.json();
             setAnswer(data.text ?? data.response ?? "");
             setPrompt("");
-            // optional: after send, you may revalidate history by fetching /api/history
         } catch (err: any) {
             console.error(err);
             setError(err.message || "Unknown error");
@@ -40,14 +38,14 @@ export default function ChatClient() {
 
     return (
         <div>
-            <h3>Ask the model</h3>
+            <h3 style={{ marginBottom: '16px' }}>Ask the model</h3>
             <form onSubmit={handleSubmit}>
                 <textarea
                     placeholder="Type a prompt..."
                     value={prompt}
                     onChange={(e) => setPrompt(e.target.value)}
                 />
-                <div style={{ marginTop: 10, display: "flex", gap: 8 }}>
+                <div style={{ marginTop: 12, display: "flex", gap: 8 }}>
                     <button type="submit" disabled={loading || !prompt.trim()}>
                         {loading ? "Thinking..." : "Send"}
                     </button>
@@ -64,10 +62,25 @@ export default function ChatClient() {
                 </div>
             </form>
 
-            <div style={{ marginTop: 12 }}>
-                <h4>Response</h4>
-                <pre style={{ whiteSpace: "pre-wrap", minHeight: 40 }}>{answer}</pre>
-                {error && <div style={{ color: "salmon" }}>{error}</div>}
+            <div style={{ marginTop: 20 }}>
+                <h4 style={{ marginBottom: '12px' }}>Response</h4>
+                {answer && (
+                    <pre style={{ 
+                        whiteSpace: "pre-wrap", 
+                        background: 'rgba(0, 0, 0, 0.2)',
+                        padding: '12px',
+                        borderRadius: '6px',
+                        minHeight: '40px'
+                    }}>
+                        {answer}
+                    </pre>
+                )}
+                {!answer && !error && (
+                    <div style={{ color: 'var(--muted)', fontSize: '14px' }}>
+                        No response yet
+                    </div>
+                )}
+                {error && <div style={{ color: "salmon", marginTop: '12px' }}>{error}</div>}
             </div>
         </div>
     );
