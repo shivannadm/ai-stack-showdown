@@ -18,7 +18,7 @@ export default function Home() {
         color: 'var(--muted)',
         fontSize: '16px'
       }}>
-        Project Development and Management by Shivanna
+         Project Development and Management by Shivanna
       </p>
       
       <div className="card">
@@ -31,5 +31,6 @@ export default function Home() {
     </main>
   );
 }
+
 
 
