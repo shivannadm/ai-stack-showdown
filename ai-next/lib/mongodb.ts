@@ -1,14 +1,17 @@
-import { MongoClient } from "mongodb";
+import { MongoClient, MongoClientOptions } from "mongodb";
 
 const uri = process.env.MONGODB_URI || "";
+
+const options: MongoClientOptions = {
+  tls: true,
+  tlsAllowInvalidCertificates: false,
+};
 
 let clientPromise: Promise<MongoClient>;
 
 if (!uri || uri.includes("localhost")) {
-  // Mock MongoDB for build/development without real DB
-  console.warn("⚠️ MONGODB_URI not configured or using localhost - using mock");
+  console.warn("⚠️ MONGODB_URI not configured properly");
   
-  // Create a mock that won't crash the build
   clientPromise = new Promise((resolve) => {
     const mockClient = {
       db: () => ({
@@ -21,8 +24,7 @@ if (!uri || uri.includes("localhost")) {
     resolve(mockClient);
   });
 } else {
-  // Real MongoDB connection
-  const client = new MongoClient(uri);
+  const client = new MongoClient(uri, options);
   
   if (process.env.NODE_ENV === "development") {
     let globalWithMongo = global as typeof globalThis & {
