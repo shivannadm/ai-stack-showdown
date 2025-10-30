@@ -306,7 +306,7 @@ vercel --prod
 **Shivanna DM**  
 🎓 Project — AI Engineering  
 💬 Focus: GenAI, Full-Stack Development, Automation  
-🌐 GitHub: [github.com/&lt;shivannadm&gt;](https://github.com/shivannadm)
+🌐 GitHub: [github.com/shivannadm](https://github.com/shivannadm)
 
 ---
 
